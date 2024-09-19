@@ -26,6 +26,7 @@ public class app
     public String[] names = {"Burger Restaurant","Mellow Mushroom","The Peddler"};
 
     public ArrayList<String> cart;
+    public ArrayList<Integer> pricesAR;
     public double total;
 
     private JTextArea cartDisplay;
@@ -141,6 +142,7 @@ public class app
     private void updateCartAdd(String added, double price)
     {
         cart.add((cart.size() + 1) + " " + added + " $" + price);
+        
         total += price;
 
         cartDisplay.append(cart.get(cart.size() - 1) + "\n");
