@@ -46,7 +46,7 @@ public class app
         frame.setSize(600, 400);
         frame.setResizable(true);
         
-        menuPanel = new JPanel(new GridLayout(0, 3, 5, 5));
+        menuPanel = new JPanel(new GridLayout(0, 2, 1, 4));
         createMenuPanel(menuPanel);
         frame.add(menuPanel, BorderLayout.CENTER);
 
@@ -62,13 +62,13 @@ public class app
 
             for (int j = 0; j < items[i].length; j++)
             {
-                JLabel itemLabel = new JLabel(items[i][j]);
+                JLabel itemLabel = new JLabel(items[i][j] + "\n$" + prices[i][j]);
                 itemLabel.setHorizontalAlignment(SwingConstants.LEFT);
                 menuPanel.add(itemLabel);
 
-                JLabel priceLabel = new JLabel("$" + prices[i][j]);
-                priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                menuPanel.add(priceLabel);
+                //JLabel priceLabel = new JLabel();
+                //priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                //menuPanel.add(priceLabel);
 
                 JButton addButton = new JButton("Add to Cart");
                 
@@ -78,7 +78,6 @@ public class app
                 addButton.addActionListener(e -> updateCartAdd(items[index1][index2], prices[index1][index2]));
                 menuPanel.add(addButton);
             }
-            menuPanel.add(new JLabel(""));
         }
     }
 
