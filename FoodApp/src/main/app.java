@@ -62,13 +62,9 @@ public class app
 
             for (int j = 0; j < items[i].length; j++)
             {
-                JLabel itemLabel = new JLabel(items[i][j] + "\n$" + prices[i][j]);
-                itemLabel.setHorizontalAlignment(SwingConstants.LEFT);
+                JLabel itemLabel = new JLabel(items[i][j] + "\n $" + prices[i][j]);
+                itemLabel.setHorizontalAlignment(SwingConstants.CENTER);
                 menuPanel.add(itemLabel);
-
-                //JLabel priceLabel = new JLabel();
-                //priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                //menuPanel.add(priceLabel);
 
                 JButton addButton = new JButton("Add to Cart");
                 
@@ -79,9 +75,11 @@ public class app
                 menuPanel.add(addButton);
             }
         }
+
+        JButton toCart = 
     }
 
-    private void createCartPanel()
+    private void createCartPanel(JPanel cart)
     {
 
     }
