@@ -17,6 +17,8 @@ public class app
     private JPanel checkoutPanel;
     private CardLayout cd1;
     private JPanel cardPanel;
+    private JLabel totalLabel;
+    private JLabel totalcheckout;
     
     public String[][] items = {{"CheeseBurger with Mushrooms", "Cheeseburger with Pimento Cheese","Crinkle Cut Fries"}, 
     {"Mighty Meaty","Kosmic Karma","Pacific Rim"},{"Sirloin","filet mignon","baked potato side"} };
@@ -111,11 +113,17 @@ public class app
         JButton removeFromCart = new JButton("removeFromCart");
         removeFromCart.addActionListener(e -> updateCartSubtract(remove.getText()));
 
-        JPanel buttonPanel = new JPanel(new GridLayout(1,3, 1, 1));
-        buttonPanel.add(backToMenu);
-        buttonPanel.add(removeFromCart);
+        JButton checkout = new JButton("checkout");
+        checkout.addActionListener(e -> {totalcheckout.setText("$" + Double.toString(this.total) + "\n Thank you!"); 
+        cd1.show(cardPanel, "Checkout");});
 
-        JLabel totalLabel = new JLabel("Total: " + Double.toString(this.total));
+        JPanel buttonPanel = new JPanel(new GridLayout(1,4, 1, 1));
+        buttonPanel.add(backToMenu);
+        buttonPanel.add(remove);
+        buttonPanel.add(removeFromCart);
+        buttonPanel.add(checkout);
+
+        totalLabel = new JLabel("Total: " + Double.toString(this.total));
         cart.add(totalLabel, BorderLayout.CENTER);
 
         cart.add(buttonPanel, BorderLayout.SOUTH);
@@ -123,9 +131,13 @@ public class app
 
     private void createCheckoutPanel(JPanel checkout)
     {
+        totalcheckout = new JLabel("$" + Double.toString(this.total) + "\n Thank you!");
+        checkout.add(totalcheckout, BorderLayout.CENTER);
+        
+        JButton backToMenu = new JButton("Back to Menu");
+        backToMenu.addActionListener(e -> cd1.show(cardPanel, "MenuPanel"));
 
-        JLabel total = new JLabel(Double.toString(this.total));
-        checkout.add(total, BorderLayout.CENTER);
+        checkout.add(backToMenu);
     }
 
     private void displayFrame()
@@ -144,22 +156,35 @@ public class app
         cart.add((cart.size() + 1) + " " + added + " $" + price);
         
         total += price;
-
+        totalLabel.setText(Double.toString(this.total));
         cartDisplay.append(cart.get(cart.size() - 1) + "\n");
 
     }
 
     private void updateCartSubtract(String jtext)
     {
-        int num = Integer.parseInt(jtext);
+        int num = Integer.parseInt(jtext) - 1;
 
         for (int i = 0; i < cart.size(); i++)
         {
             if(i == num)
             {
-                cart.remove(i);
+                String item = cart.get(num);
+                String[] split = item.split("\\$");
+                double price = Double.parseDouble(split[1]);
+                total -= price;
+                totalLabel.setText(Double.toString(this.total));
+
+                cart.remove(num);
+                cartDisplay.setText("");
+                for(int j = 0; j < cart.size(); j++)
+                {
+                    cartDisplay.append(cart.get(cart.size() - 1) + "\n");
+                }
             }
         }
+
+
     }
 
 }
